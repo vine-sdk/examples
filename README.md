@@ -1,5 +1,5 @@
-# examples
-audiolib AGC 기능 실행예제
+# Examples and guide
+audiolib AGC 기능 실행예제 및 가이드
 <br/>
 <br/>
 
@@ -25,11 +25,11 @@ OS: x86/x64용 Linux 계열, macOS, Windows (Cygwin또는 minGW 설치 필요)
 <br/>
 <br/>
 
-# 라이브러리 실행 예제
+# Example 라이브러리(audiolib) 실행 가이드
 
 <br/>
 
-### AGC 프로세싱
+### AGC 프로세싱 기능
 
 #### 1. 설치
 
