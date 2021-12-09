@@ -82,10 +82,10 @@ int main(int argc, char *argv[]) {
     sprintf(strOutFile, "%s%s%s_out%s", drive, dir, fname, ext);
     
     short       inputBuffer[FRAME_SIZE];
-   	short       outputBuffer[FRAME_SIZE];
-   	int         isEnd = 0;
+    short       outputBuffer[FRAME_SIZE];
+    int         isEnd = 0;
     int         szRead = 0;
-	int         initResult = 0;
+    int         initResult = 0;
     int         i;
     FILE        *fidIn;
     FILE        *fidOut;
@@ -97,34 +97,33 @@ int main(int argc, char *argv[]) {
         printf("\nInitialization Error - exit(1)");
         exit(1);
     }
-	fidIn = fopen(strInFile, "rb");
-	if(fidIn==NULL){
-	    printf("\nError in opening Tx input file - exit(1)");
-	    exit(1);
-	}
+    fidIn = fopen(strInFile, "rb");
+    if(fidIn==NULL){
+	printf("\nError in opening Tx input file - exit(1)");
+	exit(1);
+    }
 	
     fidOut = fopen(strOutFile, "wb"); 
     printf("Input file: %s\n", strInFile);
     printf("Output file: %s\n", strOutFile);
 
-	// Processing block
-	while(!isEnd) {
-		szRead = fread(inputBuffer, sizeof(short), FRAME_SIZE, fidIn);
+    // Processing block
+    while(!isEnd) {
+	szRead = fread(inputBuffer, sizeof(short), FRAME_SIZE, fidIn);
 		
-		if(szRead < FRAME_SIZE) {
-			for(i = szRead; i < FRAME_SIZE; i++) {
-				inputBuffer[i] = 0;
-			}
-			isEnd = 1;
-		} 
-		else {
-            VineProcessAGC(inputBuffer, outputBuffer);
+	if(szRead < FRAME_SIZE) {
+		for(i = szRead; i < FRAME_SIZE; i++) {
+			inputBuffer[i] = 0;
 		}
+		isEnd = 1;
+	} 
+	else {
+            VineProcessAGC(inputBuffer, outputBuffer);
+	}
+	fwrite(outputBuffer, sizeof(short), FRAME_SIZE, fidOut);
+    }	
 
-		fwrite(outputBuffer, sizeof(short), FRAME_SIZE, fidOut);
-	}	
-
-	// End
+    // End
     fclose(fidOut);
     fclose(fidIn);
 
